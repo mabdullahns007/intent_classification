@@ -1,6 +1,4 @@
-Here’s your README formatted cleanly in Markdown:
 
-````markdown
 # Intent Classification FastAPI Backend
 
 This project implements a **FastAPI backend** to serve a trained scikit-learn intent classification model, including essential features like health checks, batch processing, and authenticated model information retrieval.
@@ -134,6 +132,3 @@ The **Model Management Endpoint** (`/api/model/info`) is secured with **HTTP Bas
 * **Username**: `admin`
 * **Password**: `secretpassword`
 
-```
-
-```
