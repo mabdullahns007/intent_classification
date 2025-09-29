@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic
+scikit-learn
+joblib
+numpy
+python-jose[cryptography] # For authentication
+passlib[bcrypt] # For password hashing
+requests # For testing
