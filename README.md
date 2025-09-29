@@ -1,134 +1,118 @@
+That's a solid structure for a `README.md` file\! I've formatted, cleaned, and enhanced it for better readability and professionalism, using more consistent markdown practices.
 
-# Intent Classification FastAPI Backend
+Here is the formatted `README.md`:
 
-This project implements a **FastAPI backend** to serve a trained scikit-learn intent classification model, including essential features like health checks, batch processing, and authenticated model information retrieval.
+````markdown
+# 🤖 Intent Classification FastAPI Backend
+
+This project implements a **FastAPI backend** to serve a trained **scikit-learn intent classification model**. It is designed with production-ready features, including health checks, efficient batch processing, and authenticated model information retrieval.
 
 ---
 
 ## 🚀 Setup and Running
 
+This guide covers both local development and containerized deployment using Docker.
+
 ### Prerequisites
 
-- **Docker** (Recommended for deployment)  
-- **Python 3.9+** and **pip** (For local development)
-
----
+* **Docker** (Recommended for deployment)
+* **Python 3.9+** and **pip** (For local development)
 
 ### 1. Local Development Setup
 
-1. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-````
-
-2. **Run the Server:**
-   The application loads the model (`.pkl` files from `ml/`) automatically during startup.
-
-   ```bash
-   uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
-   ```
-
-   The API will be accessible at:
-   👉 `http://127.0.0.1:8000`
+1.  **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+2.  **Run the Server:**
+    The application automatically loads the pre-trained model (from `.pkl` files in the `ml/` directory) during startup.
+    ```bash
+    uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    ```
+    The API will be accessible at `http://127.0.0.1:8000`.
 
 ---
 
 ### 2. Containerization with Docker
 
-1. **Build the Docker Image:**
-
-   ```bash
-   docker build -t intent-classifier-api .
-   ```
-
-2. **Run the Container:**
-
-   ```bash
-   docker run -d --name intent-api -p 8000:8000 intent-classifier-api
-   ```
-
-   The API will be accessible at:
-   👉 `http://localhost:8000`
+1.  **Build the Docker Image:**
+    ```bash
+    docker build -t intent-classifier-api .
+    ```
+2.  **Run the Container:**
+    ```bash
+    docker run -d --name intent-api -p 8000:8000 intent-classifier-api
+    ```
+    The API will be accessible at `http://localhost:8000`.
 
 ---
 
 ### 3. Running Unit Tests
 
-To ensure all endpoints are functioning correctly, run the provided tests:
+To ensure all endpoints are functioning correctly and the model loads as expected, run the provided tests:
 
 ```bash
 pytest tests/test_api.py
-```
+````
 
----
+-----
 
-## 📡 API Endpoints
+## 🧭 API Endpoints
 
-### ✅ Health Check
+### ✅ Model Status & Classification
 
-**GET** `/api/health`
+| Endpoint | Method | Description | Authentication |
+| :--- | :--- | :--- | :--- |
+| **`/api/health`** | `GET` | **Health Check.** Returns `200 OK` if the server is running and the intent classification model has successfully loaded into memory. | None |
+| **`/api/classify`** | `POST` | **Classify a single user query.** | None |
+| **`/api/classify/batch`** | `POST` | **Classify multiple user queries simultaneously.** | None |
+| **`/api/model/info`** | `GET` | **Retrieve model metadata and performance metrics.** Provides information like accuracy, F1-score, hyper-parameters, and supported intents. | Basic Auth |
 
-* **Description**: Performs a health check.
-* **Purpose**: Returns `200 OK` if the API server is running and the model has successfully loaded.
-* **Authentication**: None.
+### Request and Response Schemas
 
----
+#### **POST `/api/classify`**
 
-### ✅ Classify a Single Query
+  * **Input Body:**
+    ```json
+    {
+      "text": "user query"
+    }
+    ```
+  * **Output Body:**
+    ```json
+    {
+      "intent": "predicted_intent", 
+      "confidence": 0.95
+    }
+    ```
 
-**POST** `/api/classify`
+#### **POST `/api/classify/batch`**
 
-* **Description**: Classify a single user query.
-* **Input**:
+  * **Input Body:**
+    ```json
+    {
+      "texts": ["query1", "query2", "query3"]
+    }
+    ```
+  * **Output Body (List of results):**
+    ```json
+    [
+      {"intent": "intent_a", "confidence": 0.91},
+      {"intent": "intent_b", "confidence": 0.88},
+      // ... more results
+    ]
+    ```
 
-  ```json
-  {"text": "user query"}
-  ```
-* **Output**:
-
-  ```json
-  {"intent": "predicted_intent", "confidence": 0.95}
-  ```
-* **Authentication**: None.
-
----
-
-### ✅ Batch Classification
-
-**POST** `/api/classify/batch`
-
-* **Description**: Classify multiple user queries simultaneously.
-* **Input**:
-
-  ```json
-  {"texts": ["query1", "query2"]}
-  ```
-* **Output**:
-
-  ```json
-  [
-    {"intent": "intent1", "confidence": 0.92},
-    {"intent": "intent2", "confidence": 0.87}
-  ]
-  ```
-* **Authentication**: None.
-
----
-
-### ✅ Model Information
-
-**GET** `/api/model/info`
-
-* **Description**: Retrieve model metadata and performance metrics.
-* **Purpose**: Provides details like accuracy, F1-score, hyperparameters, and supported intents.
-* **Authentication**: **Basic Auth**
-
----
+-----
 
 ## 🔐 Authentication
 
-The **Model Management Endpoint** (`/api/model/info`) is secured with **HTTP Basic Authentication**:
+The **Model Management Endpoint (`/api/model/info`)** is secured with **HTTP Basic Authentication**. You must provide the following credentials in the request header:
 
-* **Username**: `admin`
-* **Password**: `secretpassword`
+| Attribute | Value |
+| :--- | :--- |
+| **Username** | `admin` |
+| **Password** | `secretpassword` |
+
+```
 ```
