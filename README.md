@@ -1,6 +1,4 @@
-That's a solid structure for a `README.md` file\! I've formatted, cleaned, and enhanced it for better readability and professionalism, using more consistent markdown practices.
 
-Here is the formatted `README.md`:
 
 ````markdown
 # 🤖 Intent Classification FastAPI Backend
