@@ -131,4 +131,4 @@ The **Model Management Endpoint** (`/api/model/info`) is secured with **HTTP Bas
 
 * **Username**: `admin`
 * **Password**: `secretpassword`
-
+```
