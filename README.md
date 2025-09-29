@@ -3,21 +3,6 @@
 
 This project implements a **FastAPI backend** to serve a trained scikit-learn intent classification model, including essential features like health checks, batch processing, and authenticated model information retrieval.
 
-## 📦 Project Structure
-project/
-├── ml/
-│   ├── intent_classifier_pipeline.pkl  # Trained Model
-│   ├── intent_label_encoder.pkl        # Label Encoder
-│   └── model_loader.py                 # Logic for loading and running the model
-├── api/
-│   ├── main.py                         # FastAPI App Initialization & Lifespan
-│   ├── models.py                       # Pydantic Schemas (Input/Output validation)
-│   └── endpoints.py                    # API Routes (classify, info, health)
-├── Dockerfile                          # Containerization instructions
-├── tests/
-│   └── test_api.py                     # Unit tests
-└── requirements.txt                    # Python dependencies
-
 ## 🚀 Setup and Running
 
 ### Prerequisites
