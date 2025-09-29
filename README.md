@@ -1,39 +1,58 @@
-# intent_classification
+Here’s your README formatted cleanly in Markdown:
+
+````markdown
 # Intent Classification FastAPI Backend
 
 This project implements a **FastAPI backend** to serve a trained scikit-learn intent classification model, including essential features like health checks, batch processing, and authenticated model information retrieval.
+
+---
 
 ## 🚀 Setup and Running
 
 ### Prerequisites
 
-* **Docker** (Recommended for deployment)
-* **Python 3.9+** and **pip** (For local development)
+- **Docker** (Recommended for deployment)  
+- **Python 3.9+** and **pip** (For local development)
+
+---
 
 ### 1. Local Development Setup
 
-1.  **Install Dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-2.  **Run the Server:**
-    The application loads the model (`.pkl` files from `ml/`) automatically during startup.
-    ```bash
-    uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
-    ```
-    The API will be accessible at `http://127.0.0.1:8000`.
+1. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+````
+
+2. **Run the Server:**
+   The application loads the model (`.pkl` files from `ml/`) automatically during startup.
+
+   ```bash
+   uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
+   The API will be accessible at:
+   👉 `http://127.0.0.1:8000`
+
+---
 
 ### 2. Containerization with Docker
 
-1.  **Build the Docker Image:**
-    ```bash
-    docker build -t intent-classifier-api .
-    ```
-2.  **Run the Container:**
-    ```bash
-    docker run -d --name intent-api -p 8000:8000 intent-classifier-api
-    ```
-    The API will be accessible at `http://localhost:8000`.
+1. **Build the Docker Image:**
+
+   ```bash
+   docker build -t intent-classifier-api .
+   ```
+
+2. **Run the Container:**
+
+   ```bash
+   docker run -d --name intent-api -p 8000:8000 intent-classifier-api
+   ```
+
+   The API will be accessible at:
+   👉 `http://localhost:8000`
+
+---
 
 ### 3. Running Unit Tests
 
@@ -41,41 +60,80 @@ To ensure all endpoints are functioning correctly, run the provided tests:
 
 ```bash
 pytest tests/test_api.py
-
-API Endpoints
-
-### ✅ Intent Classification API Endpoints
-
-* **GET `/api/health`**
-    * **Description**: Performs a health check.
-    * **Purpose**: Returns `200 OK` if the API server is running and the intent classification model has successfully loaded into memory.
-    * **Authentication**: None.
+```
 
 ---
 
-* **POST `/api/classify`**
-    * **Description**: Classify a single user query.
-    * **Input**: JSON body: `{"text": "user query"}`.
-    * **Output**: JSON body: `{"intent": "predicted_intent", "confidence": 0.95}`.
-    * **Authentication**: None.
+## 📡 API Endpoints
+
+### ✅ Health Check
+
+**GET** `/api/health`
+
+* **Description**: Performs a health check.
+* **Purpose**: Returns `200 OK` if the API server is running and the model has successfully loaded.
+* **Authentication**: None.
 
 ---
 
-* **POST `/api/classify/batch`**
-    * **Description**: Classify multiple user queries simultaneously.
-    * **Input**: JSON body: `{"texts": ["query1", "query2"]}`.
-    * **Output**: A JSON list of classification results, with an entry for each query.
-    * **Authentication**: None.
+### ✅ Classify a Single Query
+
+**POST** `/api/classify`
+
+* **Description**: Classify a single user query.
+* **Input**:
+
+  ```json
+  {"text": "user query"}
+  ```
+* **Output**:
+
+  ```json
+  {"intent": "predicted_intent", "confidence": 0.95}
+  ```
+* **Authentication**: None.
 
 ---
 
-* **GET `/api/model/info`**
-    * **Description**: Retrieve model metadata and performance metrics.
-    * **Purpose**: Provides information like accuracy, F1-score, hyper-parameters, and supported intents.
-    * **Authentication**: **Basic Auth** (Username: `admin`, Password: `secretpassword`).
-🔐 Authentication
-The Model Management Endpoint (/api/model/info) is secured with HTTP Basic Authentication.
+### ✅ Batch Classification
 
-Username: admin
+**POST** `/api/classify/batch`
 
-Password: secretpassword
+* **Description**: Classify multiple user queries simultaneously.
+* **Input**:
+
+  ```json
+  {"texts": ["query1", "query2"]}
+  ```
+* **Output**:
+
+  ```json
+  [
+    {"intent": "intent1", "confidence": 0.92},
+    {"intent": "intent2", "confidence": 0.87}
+  ]
+  ```
+* **Authentication**: None.
+
+---
+
+### ✅ Model Information
+
+**GET** `/api/model/info`
+
+* **Description**: Retrieve model metadata and performance metrics.
+* **Purpose**: Provides details like accuracy, F1-score, hyperparameters, and supported intents.
+* **Authentication**: **Basic Auth**
+
+---
+
+## 🔐 Authentication
+
+The **Model Management Endpoint** (`/api/model/info`) is secured with **HTTP Basic Authentication**:
+
+* **Username**: `admin`
+* **Password**: `secretpassword`
+
+```
+
+```
